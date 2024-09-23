@@ -27,7 +27,15 @@ const pool = new Pool({
 // Your routes and other configurations go here
 
 // Example route to test the database connection
-app.get("/api/test", async (req, res) => {
+app.get("/", (req, res) => {
+  res.send("Welcome to the NOI Backend!");
+});
+
+app.get("/test", (req, res) => {
+  res.send("<h1>It's working 🤗</h1>");
+});
+
+app.get("/api/test2", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM stock_prices_main");
     res.json(result.rows);
@@ -37,8 +45,12 @@ app.get("/api/test", async (req, res) => {
   }
 });
 
+app.get("/health", (req, res) => {
+  res.status(200).send("OK");
+});
+
 // Start the server
-const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+const port = process.env.PORT || 5001;
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Server is running on port ${port}`);
 });
