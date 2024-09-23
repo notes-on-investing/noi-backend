@@ -27,6 +27,11 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
+// Log a message when the connection pool is created
+pool.on("connect", () => {
+  console.log("Connected to the PostgreSQL database.");
+});
+
 // Route handler for GET /
 app.get("/", (req, res) => {
   res.send("Welcome to the NOI Backend!");
