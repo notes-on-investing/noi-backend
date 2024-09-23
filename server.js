@@ -5,21 +5,41 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import pkg from "pg";
+// const { Pool } = require("pg");
+const { Pool } = pkg; // Correctly extract Pool from the imported pg package
 
 // const express = require("express");
 const app = express();
 
 // Your middleware and other route handlers
 
+// Start the server
+const port = process.env.PORT || 5001;
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Server is running on port ${port}`);
+});
+
+const pool = new Pool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  port: process.env.DB_PORT,
+});
+
 // Route handler for GET /
 app.get("/", (req, res) => {
   res.send("Welcome to the NOI Backend!");
 });
 
-// Start the server
-const port = process.env.PORT || 5001;
-app.listen(port, "0.0.0.0", () => {
-  console.log(`Server is running on port ${port}`);
+app.get("/records", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM stock_prices_main");
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
 });
 
 // // Destructure the Pool class from the imported package
