@@ -42,6 +42,7 @@ app.get("/records", async (req, res) => {
   }
 });
 
+console.log("TESTING ");
 // // Destructure the Pool class from the imported package
 // const { Pool } = pkg; // Correctly extract Pool from the imported pg package
 
