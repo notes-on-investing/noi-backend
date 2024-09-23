@@ -37,6 +37,10 @@ app.get("/", (req, res) => {
   res.send("Welcome to the NOI Backend!");
 });
 
+pool.on("error", (err) => {
+  console.error("Unexpected error on idle client", err);
+});
+
 app.get("/records", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM stock_prices_main");
