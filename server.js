@@ -11,6 +11,17 @@ const { Pool } = pkg; // Correctly extract Pool from the imported pg package
 // const express = require("express");
 const app = express();
 
+// Set up CORS to allow requests from your S3 URL
+app.use(
+  cors({
+    origin: "http://noi-react-app.s3-website-us-east-1.amazonaws.com", // Replace with your S3 bucket URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
+// Your routes and other middleware
+
 // Your middleware and other route handlers
 
 // Start the server
