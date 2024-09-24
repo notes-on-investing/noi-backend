@@ -25,7 +25,9 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   port: process.env.DB_PORT,
-  ssl: true,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 // Log a message when the connection pool is created
