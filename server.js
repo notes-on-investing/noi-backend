@@ -11,6 +11,18 @@ const { Pool } = pkg; // Correctly extract Pool from the imported pg package
 // const express = require("express");
 const app = express();
 
+// Set up CORS to allow requests from your S3 URL
+// app.use(
+//   cors({
+//     origin: "http://noi-react-app.s3-website-us-east-1.amazonaws.com", // Replace with your S3 bucket URL
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     credentials: true,
+//   })
+// );
+app.use(cors({ origin: "*" })); // For testing, but specify the frontend domain for production
+
+// Your routes and other middleware
+
 // Your middleware and other route handlers
 
 // Start the server
@@ -25,9 +37,6 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   port: process.env.DB_PORT,
-  ssl: {
-    rejectUnauthorized: false,
-  },
 });
 
 // Log a message when the connection pool is created
